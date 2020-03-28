@@ -1,0 +1,55 @@
+第四章 变量、作用域和内存问题
+4.1 基本类型和引用类型的值
+	基本类型是简单的数据段
+	引用类型是哪些可能由多个值构成的对象
+	解析器会确定赋值时是基本类型还是引用类型
+	JavaScript不允许直接访问内存中的位置，不能直接操作对象中的内存空间
+	很多语言将字符串以对象形式来表示，但ECMAScript放弃了这一传统
+4.1.1 动态的属性
+	对于引用类型，可添加、删除和改变属性和方法。
+4.1.2 复制变量值
+	基本类型是独立操作的，引用类型指向同一个指针，改变一个对象，另一个也会随之改变。
+4.1.3 传递参数
+	函数的参数只能按值传递
+	function setName(obj){
+		obj.name = 'reload';
+		}
+	var person = new Object();
+	person.name = 'persion';
+	setName(persion);
+	console.log(persion);//persion.name is reload
+	这里好神奇怪
+4.1.4 检测类型
+	typeof在检测引用类型的值时，作用不大。
+	instanceof检测对象是什么类型
+4.2 执行环境及作用域
+	全局执行环境 window对象，所有全局变量和函数都作为window独享的属性和方法创建的。
+	每一个函数有自己的执行环境。
+	作用域链(scope chain) 全局环境对象始终是作用域链中的最后一个对象
+4.2.1 延长作用域链
+	try-catch语句的catch块
+	with语句
+4.2.2 没有块级作用域
+	if（true){
+		var color = 'blue';
+	}
+	alert(color)//blue
+4.3 垃圾收集
+	自动垃圾收集机制，找出不再使用的变量，然后释放他们所占用的内存。局部变量只在函数执行过程中存在
+4.3.1 标记清除
+	mark-and-sweep
+4.3.2 引用计数
+	不太常用,各种坑。IE的非JavaScript原生对象使用com就是一个例子。
+	可以通过设置null回收
+	myObject。element= null；
+	element.someObject = null;
+	IE9之后修改之前的机制，把BOM和DOM对象都转化真正的JavaScript对象。
+4.3.3 性能问题
+	IE的垃圾收集器是根据内存分配量运行的，256个变量、4096个对象字面量和数组数组元素或者64kb的字符串，达到任何一个值，垃圾收集器就会运行。如果脚本变量多，垃圾收集器会不停地检测，结果IE7重写了垃圾回收程序
+4.3.4 管理内存
+	解除应用
+	globalPersion = null;
+4.4 小结
+	
+	
+	

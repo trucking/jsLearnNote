@@ -1,0 +1,63 @@
+5.5.3 作为值的函数
+	ECMAScript中函数本身就是变量，所以函数也可以作为值来使用。像传递参数一样将一个函数传给另一个函数，而且可以将一个函数作为另个函数的结果返回。
+	
+	function callSomeFunction(someFunction,someArgument){
+		return someFunction(someArgument);
+	}
+	
+	function add10(num){
+		return num +10;
+	}
+	
+	var result = callSomeFunction(add10,10);
+	alert(result);//20
+	
+	var getGreeting(name){
+		return 'hello,' +name;
+	}
+	
+	var result2 = callSomeFunction(getGreeting,'nichaolas'){
+	alert(result);//hello,nichaolas
+5.5.4函数内部属性
+	两个特殊的对象 arguments this
+	arguments 有一个属性callee 是一个指针，指向拥有这个arguments对象的函数。
+	function factorial(num){
+		if(num <=1){
+			return 1;
+		}else{
+			return num * arguments.callee(num-1)
+		}
+	}
+	
+	this 函数据以执行的环境对象-或者也可以说是this值
+	
+	window.color = 'red';
+	var 0 = { color:'blue' };
+	function sayColor(){
+		alert(this.color);
+	}
+	sayColor();//red
+	0.sayColor() = sayColor;
+	0.sayColor();//blue
+	
+	caller 这个属性保存着调用当前函数的函数的引用。严格模式下会报错
+5.5.5 函数属性和方法
+	既然函数是对象，则一定有属性和方法。
+	每个函数都包含两个属性 length prototype
+	length属性表示函数希望接受的命名参数的个数
+	prototype属性作用及其重要，是保存所有实例方法的真正所在。在实现继承时，极其重要。不可枚举
+	每个函数都包括两个非继承而来的方法apply() call()
+	apply()方法接受两个参数，一个是在其中运行函数的作用域，另一个是参数数组，可以是Array实例，也可以是arguments对象。
+	
+	function sum(num1,num2){
+		return num1 + num2;
+	}
+	function callSum1(num1,num2){
+		return sum.apply(this,[num1,num2]);
+	}
+	function callSum2(num1,num2){
+		return sum.apply(this,atguments);
+	}
+	console.log(callSum1(10,10));//20
+	console.log(callSum2(10,10));/20
+	
